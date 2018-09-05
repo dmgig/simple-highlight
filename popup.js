@@ -1,5 +1,11 @@
 chrome.tabs.executeScript( {
     code: "window.getSelection().toString();"
 }, function(selection) {
-    document.getElementById("output").innerHTML = selection[0];
+
+    chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+      var url = tabs[0].url;
+      document.getElementById("output").innerHTML = url + ' - ' + selection[0];
+    });
+
+
 });
