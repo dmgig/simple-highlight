@@ -4,7 +4,13 @@ chrome.tabs.executeScript( {
 
     chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
       var url = tabs[0].url;
-      document.getElementById("output").innerHTML = url + ' - ' + selection[0];
+      var value = url + ' - ' + selection[0];
+      document.getElementById("output").innerHTML = value;
+
+      chrome.storage.local.set({"test": value}, function() {
+        console.log('Value is set to ' + value);
+      });
+
     });
 
 
