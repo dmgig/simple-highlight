@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+    "name": "sample",
+    "description": "A sample extension to get the selected text: https://stackoverflow.com/a/34181338/399696",
+    "version": "1.0",
+    "icons": {
+        "48": "online.png"
+    },
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "activeTab"
+    ]
+}
