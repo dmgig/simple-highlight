@@ -15,3 +15,23 @@ clearButton.addEventListener('click', function(){
     }
   });
 });
+
+var downloadButton = document.getElementById('downloadStore');
+downloadButton.addEventListener('click', function() {
+  chrome.storage.local.get(['test'], function(result) {
+    var stored = result.test;
+    if(typeof JSON.parse(result.test) === typeof undefined) stored = '[]';
+    var blob = new Blob([stored], {type: 'text/json'});
+    if(window.navigator.msSaveOrOpenBlob) {
+      window.navigator.msSaveBlob(blob, 'filename.json');
+    }
+    else{
+      var elem = window.document.createElement('a');
+      elem.href = window.URL.createObjectURL(blob);
+      elem.download = 'filename.json';
+      document.body.appendChild(elem);
+      elem.click();
+      document.body.removeChild(elem);
+    }
+  });
+});

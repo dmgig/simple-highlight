@@ -12,14 +12,20 @@
         width: 100%;
         white-space: pre-wrap;
       }
+      .main__toolbar {
+        text-align: right;
+      }
     </style>
   </head>
   <body>
     <h1>Dashboard</h1>
     <div>
       <p id="rCount"></p>
+      <div class="main__toolbar">
+        <input type="button" id="clearStore" value="clear" />
+      </div>
       <pre class="storage"></pre>
-      <input type="button" id="clearStore" value="clear" />
+      <input type="button" id="downloadStore" value="download" />
     </div>
   </body>
   <script src="dashboard.js"></script>
