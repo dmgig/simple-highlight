@@ -1,7 +1,8 @@
-document.getElementsByClassName('test')[0].innerHTML = 'test this';
+
 chrome.storage.local.get(['test'], function(result) {
   var stored = result.test;
   if(typeof JSON.parse(result.test) === typeof undefined) stored = [];
+  document.getElementById('rCount').innerHTML = 'Entries saved: '+JSON.parse(stored).length;
   document.getElementsByClassName('storage')[0].innerHTML = stored;
 });
 

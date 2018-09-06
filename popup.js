@@ -4,14 +4,24 @@ chrome.tabs.executeScript( {
 
   chrome.tabs.query({'active': true, 'currentWindow': true}, function (tabs) {
 
-    // get data
-    document.getElementById("output").innerHTML = selection[0];
+    var selected = selection[0];
+    document.getElementById("output").innerHTML = selected;
+
+    // find dates
+    var chParse = chrono.strict.parse(selected);
+    var date;
+    if(chParse.length){
+      date = moment(chParse[0].text).format("YYYY-MM-DD");
+    }else{
+      alert('No date!');
+      return;
+    }
 
     // build object
     var entry = {
       url: tabs[0].url,
       value: selection[0],
-      date: '2018-10-11'
+      date: date
     };
 
     // store data
@@ -19,13 +29,11 @@ chrome.tabs.executeScript( {
       var stored;
       if(typeof result.test === typeof undefined) stored = [];
       else stored = JSON.parse(result.test);
-      console.log(stored)
       stored.push(entry);
-      stored = stored.sort(function(a, b){
-        return b.date - a.date;
+      var sortedStored = stored.sort(function(a, b){
+        return (a.date < b.date) ? -1 : (a.date > b.date) ? 1 : 0;
       });
-
-      chrome.storage.local.set({"test": JSON.stringify(stored, null, 2)});
+      chrome.storage.local.set({"test": JSON.stringify(sortedStored, null, 2)});
     });
 
   });
