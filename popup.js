@@ -8,10 +8,11 @@ chrome.tabs.executeScript( {
     document.getElementById("output").innerHTML = selected;
 
     // find dates
-    var chParse = chrono.strict.parse(selected);
+    var chParse = chrono.parse(selected);
+    console.log(chParse)
     var date;
     if(chParse.length){
-      date = moment(chParse[0].text).format("YYYY-MM-DD");
+      date = moment(chParse[0].start.date()).format("YYYY-MM-DD");
     }else{
       alert('No date!');
       return;
