@@ -4,8 +4,8 @@ chrome.tabs.executeScript( {
 
   chrome.tabs.query({'active': true, 'currentWindow': true}, function (tabs) {
 
-    var selected = selection[0];
-    document.getElementById("output").innerHTML = selected;
+    var selected = selection[0].trim();
+    document.getElementById("workspace__source").innerHTML = selected;
 
     // find dates
     var chParse = chrono.parse(selected);
@@ -22,6 +22,7 @@ chrome.tabs.executeScript( {
     var entry = {
       url: tabs[0].url,
       value: selection[0],
+      hash: selection[0].hashCode(),
       date: date
     };
 
@@ -30,6 +31,10 @@ chrome.tabs.executeScript( {
       var stored;
       if(typeof result.test === typeof undefined) stored = [];
       else stored = JSON.parse(result.test);
+      if(containsObjectWithProperty(stored, 'hash', entry.hash)){
+        alert('Already stored.');
+        return;
+      }
       stored.push(entry);
       var sortedStored = stored.sort(function(a, b){
         return (a.date < b.date) ? -1 : (a.date > b.date) ? 1 : 0;

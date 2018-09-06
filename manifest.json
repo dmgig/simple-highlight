@@ -6,7 +6,7 @@
     "icons": {
         "48": "online.png"
     },
-    "content_security_policy": "script-src 'self' https://cdnjs.cloudflare.com; object-src 'self'",
+    "content_security_policy": "script-src 'self' https://cdnjs.cloudflare.com https://stackpath.bootstrapcdn.com; object-src 'self'",
     "browser_action": {
         "default_popup": "popup.html"
     },
