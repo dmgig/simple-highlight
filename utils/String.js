@@ -8,3 +8,8 @@ String.prototype.hashCode = function() {
   }
   return hash;
 };
+
+String.prototype.stripHTML = function() {
+  var doc = new DOMParser().parseFromString(this, 'text/html');
+  return doc.body.textContent || "";
+}

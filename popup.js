@@ -4,7 +4,7 @@ chrome.tabs.executeScript( {
 
   chrome.tabs.query({'active': true, 'currentWindow': true}, function (tabs) {
 
-    var selected = selection[0].trim();
+    var selected = selection[0].stripHTML().replace(/\n/g, " ").trim();
     document.getElementById("workspace__source").innerHTML = selected;
 
     // find dates
@@ -14,8 +14,7 @@ chrome.tabs.executeScript( {
     if(chParse.length){
       date = moment(chParse[0].start.date()).format("YYYY-MM-DD");
     }else{
-      alert('No date!');
-      return;
+      date = 'NOTE';
     }
 
     // build object
